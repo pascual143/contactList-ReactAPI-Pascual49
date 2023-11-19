@@ -16,7 +16,7 @@ export const Home = () => {
 		<div className="container">
 		<div>
 		  <div >
-			<Link to="/MyForm">
+			<Link to="/Form">
 			  <button
   
 				className="createNewContact btn btn-primary"
@@ -45,7 +45,7 @@ export const Home = () => {
 				</div>
 				<div className=" col-2 icon-buttons">
 				  
-					<i className="fas fa-edit" onClick={() => navigate(`/MyForm/${index}`)} />
+					<i className="fas fa-edit" onClick={() => navigate(`/Form/${index}`)} />
 					<i className="fas fa-trash" onClick={() => actions.deleteContact(contact, index)} />
   
   

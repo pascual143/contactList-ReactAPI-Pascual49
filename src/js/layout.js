@@ -3,8 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./views/home";
-import { Demo } from "./views/contactList";
-import { Single } from "./views/Form";
+import { Form } from "./views/form";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
