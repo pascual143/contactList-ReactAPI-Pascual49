@@ -7,22 +7,24 @@ import "../../styles/demo.css";
 
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
-	const [inputName, setInputName] = useState("");
+	const [name, setName] = useState();
+	const [email, setEmail] = useState("");
+	const [phone, setPhone] = useState("");
+	const [address, setAddress]=useState("");
+	const [agenda, setAgenda] = useState("");
+  
+  
+	const CONTACT = store.contacts;
+  
+	useEffect(() => {
+	  actions.getContacts();
+	  actions.getAllAgendas();
+	  console.log(store.agenda);
 
-	//function to manage the submit form
-	const handleSumit = (e) => {
-		e.preventDefault()
-		let newContact = {
-			name: inputFullName,
-			email: inputEmail,
-			phone: inputPhone,
-			address: inputAddress,
-		}
-		newContact["id"]= store.contacts[index].id 
-		actions.addContact(newContact);
-	}
+	}, [agenda, CONTACT]);
 
 	return (
+		<>
 		<div className="container">
 			<form onSubmit={handleSumit}>
 			<label htmlFor="fullName">Full Name:</label>
@@ -41,5 +43,6 @@ export const Demo = () => {
 				<button className="btn btn-primary">Back home</button>
 			</Link>
 		</div>
+		</>
 	);
 };

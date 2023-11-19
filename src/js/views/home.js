@@ -5,21 +5,33 @@ import "../../styles/home.css";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
-	console.log(store);
+	console.log(store.agendas);
+	const [name, setName] = useState();
+	const [email, setEmail] = useState("");
+	const [phone, setPhone] = useState("");
+	const [address, setAddress]=useState("");
+	const [agenda, setAgenda] = useState("");
+  
+  
+	const CONTACT = store.contacts;
 
+	useEffect(() => {
+	  // actions.getContacts();
+	  actions.getContact();
+	  //console.log(store.getAllAgendas());
+
+	}, [agenda]);
 
 	return (
 		<div className="container">
 			<ul className="list-group">
-				{store.contacts.map((contact, index) => {
-					return (
-						<ul>
-							<li key={index}>
-								<h2>{contact.full_name}</h2>
-							</li>
-						</ul>
-					);
-				})}
+			<button
+            type="button"
+            className="btn btn-primary"
+            onClick={actions.agendas}
+          >
+            Agenda seleccionada: {store.agendas}
+          </button>
 			</ul>
 			<Link to="/">
         <span className="btn btn-primary btn-lg" href="#" role="button">
@@ -29,6 +41,16 @@ export const Home = () => {
 		</div>
 	);
 };
+
+// {actions.addContact.contacts.map((contacts, index) => {
+// 	return (
+// 		<ul>
+// 			<li key={index}>
+// 				<h2>{contacts.email}</h2>
+// 			</li>
+// 		</ul>
+// 	);
+// })}
 
 
 
