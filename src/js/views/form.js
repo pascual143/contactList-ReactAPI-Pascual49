@@ -1,98 +1,149 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link, useParams } from "react-router-dom";
 
 export const Form = () => {
-  const { store,actions } = useContext(Context);
-  const [inputFullName, setInputFullName] = useState("");
-  const [inputAddress, setInputAddress] = useState("");
-  const [inputPhone, setInputPhone] = useState("");
-  const [inputEmail, setInputEmail] = useState("");
-  const { index } = useParams();
+  const { actions } = useContext(Context);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [agenda, setAgenda] = useState("");
+  const [contactojson, setContactoJson] = useState(null);
 
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    let newContact = {
-      full_name: inputFullName,
-      email: inputEmail,
-      phone: inputPhone,
-      address: inputAddress,
-    };
-
-    if (index !== undefined) {
-      newContact["id"]= store.contacts[index].id 
-      actions.editContact(newContact, index);
-    } else {
-      actions.addContact(newContact);
+const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "name") {
+      setName(value);
+    } else if (name === "email") {
+      setEmail(value);
+    } else if (name === "phone") {
+      setPhone(value);
+    } else if (name === "address") {
+      setAddress(value);
+    } else if (name === "agenda") {
+      setAgenda(value);
     }
   };
 
+  const addContacts = () => {
+    const newContact = {
+      full_name: name,
+      email: email,
+      agenda_slug: agenda,
+      phone: phone,
+      address: address,
+      
+    };
+    setContactoJson(newContact);
+    actions.addContact(newContact);
+    deleteHandleInputChange();
+    console.log("Nuevo contacto JSON:", newContact);
+  };
+
+  const deleteHandleInputChange = () => {
+    setName("");
+    setEmail("");
+    setPhone("");
+    setAddress("");
+    setAgenda("");
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      addContacts();
+    }
+  };
 
   return (
-    <div className="form">
-      <h1>Add a new contact</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="fullName">Full Name:</label>
-          <input
-            type="text"
-            id="fullName"
-            placeholder="Full name"
-            value={inputFullName}
-            onChange={(e) => {
-              setInputFullName(e.target.value);
-            }}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter email"
-            value={inputEmail}
-            onChange={(e) => {
-              setInputEmail(e.target.value);
-            }}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="phone">Phone:</label>
-          <input
-            type="tel"
-            id="phone"
-            placeholder="Enter phone"
-            value={inputPhone}
-            onChange={(e) => {
-              setInputPhone(e.target.value);
-            }}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="address">Address:</label>
-          <textarea
-            id="address"
-            placeholder="Enter address"
-            value={inputAddress}
-            onChange={(e) => {
-              setInputAddress(e.target.value);
-            }}
-          ></textarea>
-        </div>
-        <button
-          type="submit"
-          className="createNewContact btn btn-success"
-
-        >
-          Save
-        </button>
-        <Link to="/">Or go Back to Contacts</Link>
-
-
-      </form>
-
-    </div >
+    <div className="container d-flex justify-content-center align-items-center vh-100">
+      <div className="border border-dark rounded-3 p-4 w-75">
+        <form>
+          <div className="mb-3">
+            <label htmlFor="fullName" className="form-label">
+              Full Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={handleInputChange}
+              className="form-control"
+              id="fullName"
+              aria-describedby="fullNameHelp"
+              onKeyDown={handleKeyPress}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleInputChange}
+              className="form-control"
+              id="email"
+              aria-describedby="emailHelp"
+              onKeyDown={handleKeyPress}
+            />
+            <div id="emailHelp" className="form-text">
+              We'll never share your email with anyone else.
+            </div>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="phone" className="form-label">
+              Phone
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              value={phone}
+              onChange={handleInputChange}
+              className="form-control"
+              id="phone"
+              onKeyDown={handleKeyPress}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="address" className="form-label">
+              Address
+            </label>
+            <input
+              type="text"
+              name="address"
+              value={address}
+              onChange={handleInputChange}
+              className="form-control"
+              id="address"
+              onKeyDown={handleKeyPress}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="agenda" className="form-label">
+              Agenda
+            </label>
+            <input
+              type="text"
+              name="agenda"
+              value={agenda}
+              onChange={handleInputChange}
+              className="form-control"
+              id="agenda"
+              onKeyDown={handleKeyPress}
+            />
+          </div>
+          <button
+            type="button"
+            onClick={addContacts}
+            className="btn btn-primary"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+ 
+    </div>
   );
 };
