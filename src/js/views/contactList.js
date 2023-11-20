@@ -12,15 +12,13 @@ export const ContactList = () => {
   const [agenda, setAgenda] = useState("");
 
 
-  const CONTACT = store.contacts;
+  const contact = store.contacts;
 
   useEffect(() => {
     actions.getContacts();
-    actions.getAllAgendas();
-    console.log(store.agenda);
+    actions.getAllAgendas();    
     
-    
-  }, [agenda, CONTACT]);
+  }, [agenda, contact]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -103,7 +101,7 @@ const handleKeyPress = (e) => {
           <div
             className="modal fade"
             id="exampleModal"
-            tabindex="-1"
+            tabIndex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
           >
@@ -120,9 +118,9 @@ const handleKeyPress = (e) => {
                 </div>
                 <div className="modal-body">
                   {store.agendas.map((el, index) => (
-                    <div class="form-check">
+                    <div className="form-check">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="radio"
                         name="exampleRadios"
                         onClick={() => selectAgenda(el)}
@@ -130,7 +128,7 @@ const handleKeyPress = (e) => {
                         value={`option${index}`}
                       />
                       <label
-                        class="form-check-label"
+                        className="form-check-label"
                         for={`exampleRadios${index}`}
                       >
                         {el}
@@ -150,7 +148,7 @@ const handleKeyPress = (e) => {
                     type="button"
                     onClick={saveChanges}
                     data-bs-dismiss="modal"
-                    class="btn btn-success"
+                    className="btn btn-success"
                   >
                     Success
                   </button>
@@ -166,18 +164,18 @@ const handleKeyPress = (e) => {
         store.agenda === "NOT_FOUND"?(
           <p>No hay contactos en la agenda.</p>
         ) :(
-      CONTACT.map((el, index) => (
+      contact.map((el, index) => (
         <div key={el.id} className="container " >
           <div className="row align-items-center border border-dark mt-4 rounded p-2">
-            <div className="col-lg-2 col-md-2 col-4 d-flex align-items-center justify-content-center">
+            <div className="col-md-2 col-4 d-flex align-items-center justify-content-center">
               <img
                 className="photoprofile rounded-circle"
                 src={ProfilePic}
-                alt=""
+                alt="Photo"
                 style={{width: '100px', height: '100px'}}
               />
             </div>
-            <div className="col-lg-7  col-md-7 col-8  d-flex justify-content-start mt-3 mt-md-0">
+            <div className="col-md-7 col-8  d-flex justify-content-start mt-4 mt-0">
               <div className="text-start">
                 <Link to={`/contact/${el.id}`} >
                   <h5 className="mb-0">{el.full_name}</h5>
@@ -203,7 +201,7 @@ const handleKeyPress = (e) => {
               <div
                 className="modal fade"
                 id="ModalEditar"
-                tabindex="-1"
+                tabIndex="-1"
                 aria-labelledby="exampleModalLabel"
                 aria-hidden="true"
               >

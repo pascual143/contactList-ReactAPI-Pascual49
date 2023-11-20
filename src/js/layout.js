@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { ContactList } from "./views/contactList.js";
-import { Form } from "./views/form.js";
+import { Form } from "./views/addContact.js";
 import { ContactInfo } from "./views/contactInfo.js";
 import injectContext from "./store/appContext";
 

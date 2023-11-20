@@ -8,7 +8,7 @@ export const Form = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [agenda, setAgenda] = useState("");
-  const [contactojson, setContactoJson] = useState(null);
+  const [contactLink, setcontactLink] = useState(null);
 
 const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -34,7 +34,7 @@ const handleInputChange = (e) => {
       address: address,
       
     };
-    setContactoJson(newContact);
+    setcontactLink(newContact);
     actions.addContact(newContact);
     deleteHandleInputChange();
     console.log("Nuevo contacto JSON:", newContact);
@@ -89,7 +89,7 @@ const handleInputChange = (e) => {
               onKeyDown={handleKeyPress}
             />
             <div id="emailHelp" className="form-text">
-              We'll never share your email with anyone else.
+              Your mail
             </div>
           </div>
           <div className="mb-3">
@@ -143,7 +143,6 @@ const handleInputChange = (e) => {
           </button>
         </form>
       </div>
- 
     </div>
   );
 };

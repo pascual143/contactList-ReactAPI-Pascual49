@@ -1,22 +1,50 @@
 import React, {useContext, useEffect, useState, } from "react";
-import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import profilePic from '../../img/rigo-baby.jpg';
 
+import { Link, useParams } from 'react-router-dom';
+
+
+
 export const ContactInfo = () => {
   const { store, actions } = useContext(Context);
-const params = useParams()
   const[contact, setContact]=useState(null)
+  const params = useParams();
 
-  useEffect(()=>{
-    const getData = async()=>{
-      setContact(await actions.getContact(params.id))
+  const [contacto, setContacto] = useState({});
+  const [fullName, setFullName] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+
+  const agenda = store.agendas
+  
+
+  const getContacto = () => {
+    fetch(`https://playground.4geeks.com/apis/fake/contact/agenda/${agenda}` + params.id), {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
     }
-    getData()
+      .then(res => res.json())
+      .then(
+        setStore()
+      )
+      .catch(error => {
+        console.error("Error al obtener el contacto:", error);
+      });
+  };
 
-  },[])
+ // useEffect(() => {
+ //   getContacto();
+ // }, []);
 
-  console.log(contact)
+  //if (!contact) {
+  //  return <div>Loading...</div>;
+  //}
+
+  // console.log(contact)
 
 
   return (
@@ -33,10 +61,9 @@ const params = useParams()
             />
           </div>
           <div className="col">
-            <h5>Nombre: {contact?.full_name} </h5>
-            <p>Dirección: {contact?.address}</p>
-            <p>Teléfono: {contact?.phone}</p>
-            <p>Correo electrónico: {contact?.email}</p>
+            
+            <h5>Nombre: {email} </h5>
+           
           </div>
 
         </div>
@@ -44,3 +71,7 @@ const params = useParams()
     </div>
   );
 };
+
+// <p>Dirección: {contact}</p>
+// <p>Teléfono: {contact}</p>
+// <p>Correo electrónico: {contact}</p>
