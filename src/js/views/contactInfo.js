@@ -5,7 +5,6 @@ import profilePic from '../../img/rigo-baby.jpg';
 import { Link, useParams } from 'react-router-dom';
 
 
-
 export const ContactInfo = () => {
   const { store, actions } = useContext(Context);
   const[contact, setContact]=useState(null)
@@ -17,24 +16,7 @@ export const ContactInfo = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
-  const agenda = store.agendas
-  
 
-  const getContacto = () => {
-    fetch(`https://playground.4geeks.com/apis/fake/contact/agenda/${agenda}` + params.id), {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      },
-    }
-      .then(res => res.json())
-      .then(
-        setStore()
-      )
-      .catch(error => {
-        console.error("Error al obtener el contacto:", error);
-      });
-  };
 
  // useEffect(() => {
  //   getContacto();
